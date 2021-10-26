@@ -11,5 +11,15 @@
       this is where all stories go
       <a href="/">home</a>
     </h1>
+
+    <% for(let story of stories){ %>
+    <div>
+      <h3><a href="/shortStories/<%=story._id %>"> <%= story.title %></a></h3>
+      <h6>By : <%= story.author %></h6>
+    </div>
+
+    <% } %>
+
+    <a href="/shortStories/new"> new story</a>
   </body>
 </html>

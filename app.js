@@ -20,14 +20,15 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride());
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/shortStories", (req, res) => {
-  res.render("shortStories/index");
+app.get("/shortStories", async (req, res) => {
+  const stories = await Story.find({});
+  res.render("shortStories/index", { stories });
 });
 
 app.get("/shortStories/new", (req, res) => {
@@ -46,11 +47,18 @@ app.get("/shortStories/:id/edit", async (req, res) => {
   res.render("shortStories/edit", { story });
 });
 
-app.put("/shortStories/:id", async (req, res) => {
+app.patch("/shortStories/:id", async (req, res) => {
   const { id } = req.params;
-  const story = await Story.findByIdAndUpdate(id, ...req.body.story);
+  const story = await Story.findByIdAndUpdate(id, { ...req.body });
+  console.log(req.body);
   await story.save();
   res.redirect(`/shortStories/${story._id}`);
+});
+
+app.delete("/shortStories/:id", async (req, res) => {
+  const { id } = req.params;
+  const story = await Story.findByIdAndDelete(id);
+  res.redirect("/shortStories");
 });
 
 app.post("/shortStories", async (req, res) => {

@@ -9,8 +9,11 @@
   <body>
     <h1><%= story.title %> story is this</h1>
 
-    <p> <%= story.author %>  this is author</p>
+    <p><%= story.author %> this is author</p>
 
-    <p> <%= story.story %>  (this is story)                       </p>
+    <p><%= story.story %> (this is story)</p>
+
+    <a href="/shortStories">back to index</a>
+    <a href="/shortStories/<%= story._id %>/edit "> EDIT</a>
   </body>
 </html>

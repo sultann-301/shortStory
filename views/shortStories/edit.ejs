@@ -7,7 +7,7 @@
     <title>Edit shortStory</title>
   </head>
   <body>
-    <form action="/shortStories/<%=story._id%>?_method=PUT" method="POST">
+    <form action="/shortStories/<%=story._id%>?_method=PATCH" method="POST">
       <div>
         <label for="author">Edit the name of the author</label>
         <input
@@ -29,5 +29,10 @@
       </div>
       <button>Submit</button>
     </form>
+    <form action="/shortStories/<%= story._id %>?_method=DELETE" method="post">
+      <button>DELETE</button>
+    </form>
+
+    <a href="/shortStories/<%=story._id %> ">back to story</a>
   </body>
 </html>
